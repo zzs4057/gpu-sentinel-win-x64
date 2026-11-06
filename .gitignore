@@ -1,0 +1,12 @@
+monitor/V100Monitor.ini
+monitor/logs/
+monitor/*.log
+monitor/*.csv
+dist/
+*.user
+.vs/
+.vscode/
+Thumbs.db
+Desktop.ini
+.env
+*.token
