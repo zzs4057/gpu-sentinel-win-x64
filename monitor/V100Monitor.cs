@@ -1368,13 +1368,16 @@ namespace GpuSentinel
                 }
 
                 DrawDetail(e.Graphics, "驱动", Fallback(Reading.DriverVersion),
-                    new Rectangle(18, 228, Width / 4 - 12, 36), small, smallValue);
+                    new Rectangle(18, 228, Math.Max(70, (Width - 36) * 30 / 100), 36), small, smallValue);
                 DrawDetail(e.Graphics, "模式", Fallback(Reading.Mode),
-                    new Rectangle(18 + Width / 4, 228, Width / 4 - 12, 36), small, smallValue);
+                    new Rectangle(18 + (Width - 36) * 30 / 100, 228,
+                        Math.Max(52, (Width - 36) * 18 / 100), 36), small, smallValue);
                 DrawDetail(e.Graphics, "PCIe", Fallback(Reading.Pcie),
-                    new Rectangle(18 + Width / 2, 228, Width / 4 - 12, 36), small, smallValue);
+                    new Rectangle(18 + (Width - 36) * 48 / 100, 228,
+                        Math.Max(55, (Width - 36) * 17 / 100), 36), small, smallValue);
                 DrawDetail(e.Graphics, "INF", Fallback(Reading.InfName),
-                    new Rectangle(18 + Width * 3 / 4, 228, Width / 4 - 30, 36), small, smallValue);
+                    new Rectangle(18 + (Width - 36) * 65 / 100, 228,
+                        Math.Max(80, (Width - 36) * 35 / 100 - 12), 36), small, smallValue);
 
             }
         }
@@ -1571,6 +1574,23 @@ namespace GpuSentinel
         private static string LabelFor(GpuReading reading)
         {
             string name = reading == null ? "GPU" : reading.Name;
+            if (name.IndexOf("V100", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "Tesla V100";
+            }
+            if (name.IndexOf("5070", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "RTX 5070";
+            }
+            if (name.IndexOf("Intel", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "Intel Graphics";
+            }
+            if (name.IndexOf("Radeon", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                name.IndexOf("AMD", StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return "AMD GPU";
+            }
             if (name.Length <= 22)
             {
                 return name;
@@ -2095,6 +2115,17 @@ namespace GpuSentinel
             return "GPU";
         }
 
+        private static string EventDeviceName(string name)
+        {
+            string value = name ?? "GPU";
+            if (value.IndexOf("V100", StringComparison.OrdinalIgnoreCase) >= 0) return "Tesla V100";
+            if (value.IndexOf("5070", StringComparison.OrdinalIgnoreCase) >= 0) return "RTX 5070";
+            if (value.IndexOf("Intel", StringComparison.OrdinalIgnoreCase) >= 0) return "Intel Graphics";
+            if (value.IndexOf("Radeon", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                value.IndexOf("AMD", StringComparison.OrdinalIgnoreCase) >= 0) return "AMD GPU";
+            return value.Length <= 22 ? value : value.Substring(0, 20) + "...";
+        }
+
         private void RefreshData(bool manual)
         {
             if (refreshing)
@@ -2211,9 +2242,7 @@ namespace GpuSentinel
                 bool hadPrevious = previousDeviceHealth.TryGetValue(reading.DeviceKey, out previous);
                 if (!hadPrevious || previous != reading.Health)
                 {
-                    AddEvent(reading.Health,
-                        reading.Name + " · " + reading.StatusText +
-                        (string.IsNullOrWhiteSpace(reading.StatusDetail) ? string.Empty : " · " + reading.StatusDetail));
+                    AddEvent(reading.Health, EventDeviceName(reading.Name) + " · " + reading.StatusText);
                     if (hadPrevious && reading.Health != HealthLevel.Healthy &&
                         previous == HealthLevel.Healthy &&
                         (DateTime.Now - previousAlertTime).TotalMinutes > 2)

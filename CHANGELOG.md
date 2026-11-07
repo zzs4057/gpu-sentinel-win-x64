@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 - 2026-11-07
+
+- Shortened event-list messages so long PnP fallback descriptions do not clip.
+- Added compact trend-chart labels for NVIDIA, Intel and AMD devices.
+- Rechecked the UI at 1260x850 and 1000x740.
+- Prevented a horizontal scrollbar when two cards fit in a compact window.
+
 ## 1.1.0 - 2026-11-06
 
 - Added automatic discovery of all PCI display adapters.
