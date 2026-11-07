@@ -1086,7 +1086,7 @@ namespace GpuSentinel
                 graphics.FillPath(brush, path);
                 graphics.DrawPath(pen, path);
             }
-            using (Font titleFont = new Font("Segoe UI Semibold", 10.5f, FontStyle.Bold))
+            using (Font titleFont = new Font("Segoe UI Semibold", 11.5f, FontStyle.Bold))
             {
                 TextRenderer.DrawText(
                     graphics,
@@ -1119,8 +1119,8 @@ namespace GpuSentinel
             ButtonPanel.FlowDirection = FlowDirection.LeftToRight;
             ButtonPanel.WrapContents = false;
             ButtonPanel.AutoSize = false;
-            ButtonPanel.Width = 440;
-            ButtonPanel.Height = 38;
+            ButtonPanel.Width = 520;
+            ButtonPanel.Height = 40;
             ButtonPanel.BackColor = Color.Transparent;
             ButtonPanel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             Controls.Add(ButtonPanel);
@@ -1137,29 +1137,29 @@ namespace GpuSentinel
         protected override void OnResize(EventArgs e)
         {
             base.OnResize(e);
-            ButtonPanel.Location = new Point(Math.Max(0, Width - ButtonPanel.Width), 14);
+            ButtonPanel.Location = new Point(Math.Max(0, Width - ButtonPanel.Width), 17);
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
-            using (Font title = new Font("Segoe UI Semibold", 18.5f, FontStyle.Bold))
-            using (Font sub = new Font("Segoe UI", 9.5f, FontStyle.Regular))
-            using (Font status = new Font("Segoe UI Semibold", 8.3f, FontStyle.Bold))
+        using (Font title = new Font("Segoe UI Semibold", 21f, FontStyle.Bold))
+        using (Font sub = new Font("Segoe UI", 10.5f, FontStyle.Regular))
+        using (Font status = new Font("Segoe UI Semibold", 9.2f, FontStyle.Bold))
             {
                 TextRenderer.DrawText(
                     e.Graphics,
                     "GPU SENTINEL",
                     title,
-                    new Rectangle(0, 8, 380, 34),
+                    new Rectangle(0, 10, 430, 38),
                     Palette.Text,
                     TextFormatFlags.Left | TextFormatFlags.NoPadding | TextFormatFlags.VerticalCenter);
                 TextRenderer.DrawText(
                     e.Graphics,
                     subtitle,
                     sub,
-                    new Rectangle(2, 43, Math.Max(220, Width - ButtonPanel.Width - 30), 22),
+                    new Rectangle(2, 49, Math.Max(300, Width - ButtonPanel.Width - 34), 24),
                     Palette.Muted,
                     TextFormatFlags.Left | TextFormatFlags.NoPadding | TextFormatFlags.VerticalCenter);
 
@@ -1167,9 +1167,9 @@ namespace GpuSentinel
                 Size size = TextRenderer.MeasureText(statusText, status);
                 Rectangle pill = new Rectangle(
                     Width - ButtonPanel.Width - size.Width - 38,
-                    11,
+                    14,
                     size.Width + 24,
-                    24);
+                    27);
                 using (SolidBrush fill = new SolidBrush(Color.FromArgb(38, healthColor)))
                 using (GraphicsPath path = DrawingUtil.RoundedRect(pill, 6))
                 {
@@ -1204,7 +1204,7 @@ namespace GpuSentinel
                 ControlStyles.ResizeRedraw | ControlStyles.UserPaint | ControlStyles.SupportsTransparentBackColor, true);
             Glyph = "\uE72C";
             Label = "刷新";
-            Size = new Size(76, 34);
+            Size = new Size(94, 38);
             Cursor = Cursors.Hand;
             BackColor = Color.Transparent;
         }
@@ -1253,8 +1253,8 @@ namespace GpuSentinel
                 e.Graphics.FillPath(brush, path);
                 e.Graphics.DrawPath(border, path);
             }
-            using (Font icon = new Font("Segoe MDL2 Assets", 10.5f, FontStyle.Regular))
-            using (Font text = new Font("Segoe UI", 9f, FontStyle.Regular))
+            using (Font icon = new Font("Segoe MDL2 Assets", 11.5f, FontStyle.Regular))
+            using (Font text = new Font("Segoe UI", 9.8f, FontStyle.Regular))
             {
                 TextRenderer.DrawText(
                     e.Graphics, Glyph, icon,
@@ -1301,28 +1301,29 @@ namespace GpuSentinel
             }
 
             Color statusColor = DrawingUtil.HealthColor(Reading.Health);
-            using (Font roleFont = new Font("Segoe UI Semibold", 12f, FontStyle.Bold))
-            using (Font nameFont = new Font("Segoe UI", 8.5f, FontStyle.Regular))
-            using (Font statusFont = new Font("Segoe UI Semibold", 8.5f, FontStyle.Bold))
-            using (Font metricLabel = new Font("Segoe UI", 8.2f, FontStyle.Regular))
-            using (Font metricValue = new Font("Segoe UI Semibold", 13.5f, FontStyle.Bold))
-            using (Font small = new Font("Segoe UI", 8f, FontStyle.Regular))
-            using (Font smallValue = new Font("Segoe UI Semibold", 8.8f, FontStyle.Bold))
+            using (Font roleFont = new Font("Segoe UI Semibold", 14f, FontStyle.Bold))
+            using (Font nameFont = new Font("Segoe UI", 9.5f, FontStyle.Regular))
+            using (Font statusFont = new Font("Segoe UI Semibold", 9.5f, FontStyle.Bold))
+            using (Font metricLabel = new Font("Segoe UI", 9.1f, FontStyle.Regular))
+            using (Font metricValue = new Font("Segoe UI Semibold", 15.5f, FontStyle.Bold))
+            using (Font small = new Font("Segoe UI", 8.8f, FontStyle.Regular))
+            using (Font smallValue = new Font("Segoe UI Semibold", 9.2f, FontStyle.Bold))
+            using (Font tileValue = new Font("Segoe UI Semibold", 10.3f, FontStyle.Bold))
             {
                 TextRenderer.DrawText(
                     e.Graphics, ShortRole, roleFont,
-                    new Rectangle(18, 13, Width - 130, 26),
+                    new Rectangle(20, 14, Width - 160, 30),
                     Palette.Text,
                     TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
                 TextRenderer.DrawText(
                     e.Graphics, Reading.Name, nameFont,
-                    new Rectangle(19, 38, Width - 130, 20),
+                    new Rectangle(21, 42, Width - 160, 22),
                     Palette.Muted,
                     TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding |
                     TextFormatFlags.EndEllipsis);
 
                 Size statusSize = TextRenderer.MeasureText(Reading.StatusText, statusFont);
-                Rectangle pill = new Rectangle(Width - statusSize.Width - 38, 17, statusSize.Width + 22, 23);
+                Rectangle pill = new Rectangle(Width - statusSize.Width - 42, 19, statusSize.Width + 24, 27);
                 using (SolidBrush statusFill = new SolidBrush(Color.FromArgb(38, statusColor)))
                 using (GraphicsPath pillPath = DrawingUtil.RoundedRect(pill, 6))
                 {
@@ -1334,50 +1335,40 @@ namespace GpuSentinel
                     statusColor,
                     TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
 
-                DrawGauge(e.Graphics, new Rectangle(18, 72, 124, 124), Reading.UsagePercent, metricValue, metricLabel);
-
-                int valueX = 152;
-                int valueWidth = Math.Max(100, Width - valueX - 18);
-                DrawMetric(e.Graphics, "显存", Formatters.Memory(Reading.MemoryUsedMiB, Reading.MemoryTotalMiB),
-                    new Rectangle(valueX, 70, valueWidth, 44), metricLabel, smallValue);
-                DrawMetric(e.Graphics, "温度", Formatters.Number(Reading.TemperatureC, " °C", 0),
-                    new Rectangle(valueX, 113, valueWidth / 2, 42), metricLabel, smallValue);
-                DrawMetric(e.Graphics, "功耗", Formatters.Number(Reading.PowerDrawW, " W", 1),
-                    new Rectangle(valueX + valueWidth / 2, 113, valueWidth / 2, 42), metricLabel, smallValue);
-                DrawMetric(e.Graphics, "核心", Formatters.Number(Reading.GraphicsClockMHz, " MHz", 0),
-                    new Rectangle(valueX, 154, valueWidth / 2, 42), metricLabel, smallValue);
-                DrawMetric(e.Graphics, "显存频率", Formatters.Number(Reading.MemoryClockMHz, " MHz", 0),
-                    new Rectangle(valueX + valueWidth / 2, 154, valueWidth / 2, 42), metricLabel, smallValue);
-
-                Rectangle memoryTrack = new Rectangle(18, 207, Width - 36, 8);
-                using (SolidBrush track = new SolidBrush(Palette.SurfaceRaised))
-                using (GraphicsPath trackPath = DrawingUtil.RoundedRect(memoryTrack, 4))
+                using (Pen divider = new Pen(Palette.Border))
                 {
-                    e.Graphics.FillPath(track, trackPath);
+                    e.Graphics.DrawLine(divider, 20, 74, Width - 20, 74);
                 }
-                double memoryPercent = Reading.MemoryUsagePercent;
-                if (memoryPercent > 0)
-                {
-                    int width = Math.Max(4, (int)Math.Round(memoryTrack.Width * memoryPercent / 100.0));
-                    Rectangle used = new Rectangle(memoryTrack.Left, memoryTrack.Top, width, memoryTrack.Height);
-                    using (SolidBrush usedBrush = new SolidBrush(Accent))
-                    using (GraphicsPath usedPath = DrawingUtil.RoundedRect(used, 4))
-                    {
-                        e.Graphics.FillPath(usedBrush, usedPath);
-                    }
-                }
+                DrawGauge(e.Graphics, new Rectangle(20, 86, 132, 132), Reading.UsagePercent, metricValue, metricLabel);
 
-                DrawDetail(e.Graphics, "驱动", Fallback(Reading.DriverVersion),
-                    new Rectangle(18, 228, Math.Max(70, (Width - 36) * 30 / 100), 36), small, smallValue);
-                DrawDetail(e.Graphics, "模式", Fallback(Reading.Mode),
-                    new Rectangle(18 + (Width - 36) * 30 / 100, 228,
-                        Math.Max(52, (Width - 36) * 18 / 100), 36), small, smallValue);
-                DrawDetail(e.Graphics, "PCIe", Fallback(Reading.Pcie),
-                    new Rectangle(18 + (Width - 36) * 48 / 100, 228,
-                        Math.Max(55, (Width - 36) * 17 / 100), 36), small, smallValue);
-                DrawDetail(e.Graphics, "INF", Fallback(Reading.InfName),
-                    new Rectangle(18 + (Width - 36) * 65 / 100, 228,
-                        Math.Max(80, (Width - 36) * 35 / 100 - 12), 36), small, smallValue);
+                int gridX = 166;
+                int gridWidth = Math.Max(190, Width - gridX - 20);
+                int gap = 8;
+                int halfWidth = Math.Max(90, (gridWidth - gap) / 2);
+                DrawTile(e.Graphics, "显存", Formatters.Memory(Reading.MemoryUsedMiB, Reading.MemoryTotalMiB),
+                    new Rectangle(gridX, 84, gridWidth, 52), metricLabel, tileValue);
+                DrawTile(e.Graphics, "温度", Formatters.Number(Reading.TemperatureC, " °C", 0),
+                    new Rectangle(gridX, 142, halfWidth, 52), metricLabel, tileValue);
+                DrawTile(e.Graphics, "功耗", Formatters.Number(Reading.PowerDrawW, " W", 1),
+                    new Rectangle(gridX + halfWidth + gap, 142, halfWidth, 52), metricLabel, tileValue);
+                DrawTile(e.Graphics, "核心频率", Formatters.Number(Reading.GraphicsClockMHz, " MHz", 0),
+                    new Rectangle(gridX, 200, halfWidth, 52), metricLabel, tileValue);
+                DrawTile(e.Graphics, "显存频率", Formatters.Number(Reading.MemoryClockMHz, " MHz", 0),
+                    new Rectangle(gridX + halfWidth + gap, 200, halfWidth, 52), metricLabel, tileValue);
+
+                using (Pen divider = new Pen(Palette.Border))
+                {
+                    e.Graphics.DrawLine(divider, 20, 262, Width - 20, 262);
+                }
+                int detailWidth = Math.Max(150, (Width - 50) / 2);
+                DrawTile(e.Graphics, "驱动", Fallback(Reading.DriverVersion),
+                    new Rectangle(20, 272, detailWidth, 50), small, tileValue);
+                DrawTile(e.Graphics, "模式", Fallback(Reading.Mode),
+                    new Rectangle(20 + detailWidth + 10, 272, detailWidth, 50), small, tileValue);
+                DrawTile(e.Graphics, "PCIe", Fallback(Reading.Pcie),
+                    new Rectangle(20, 328, detailWidth, 50), small, tileValue);
+                DrawTile(e.Graphics, "INF", Fallback(Reading.InfName),
+                    new Rectangle(20 + detailWidth + 10, 328, detailWidth, 50), small, tileValue);
 
             }
         }
@@ -1407,7 +1398,7 @@ namespace GpuSentinel
                 TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
             TextRenderer.DrawText(
                 graphics, "GPU 利用率", labelFont,
-                new Rectangle(bounds.Left, bounds.Top + 72, bounds.Width, 24),
+                new Rectangle(bounds.Left - 10, bounds.Bottom + 2, bounds.Width + 20, 18),
                 Palette.Muted,
                 TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
         }
@@ -1441,6 +1432,29 @@ namespace GpuSentinel
                 new Rectangle(bounds.Left, bounds.Top + 15, bounds.Width, 19),
                 Palette.Text,
                 TextFormatFlags.Left | TextFormatFlags.NoPadding | TextFormatFlags.EndEllipsis);
+        }
+
+        private static void DrawTile(Graphics graphics, string label, string value, Rectangle bounds,
+            Font labelFont, Font valueFont)
+        {
+            using (SolidBrush fill = new SolidBrush(Palette.SurfaceRaised))
+            using (Pen border = new Pen(Palette.Border))
+            using (GraphicsPath path = DrawingUtil.RoundedRect(bounds, 4))
+            {
+                graphics.FillPath(fill, path);
+                graphics.DrawPath(border, path);
+            }
+            TextRenderer.DrawText(
+                graphics, label, labelFont,
+                new Rectangle(bounds.Left + 10, bounds.Top + 4, bounds.Width - 20, 20),
+                Palette.Muted,
+                TextFormatFlags.Left | TextFormatFlags.Top | TextFormatFlags.NoPadding);
+            TextRenderer.DrawText(
+                graphics, value, valueFont,
+                new Rectangle(bounds.Left + 10, bounds.Top + 24, bounds.Width - 20, 22),
+                Palette.Text,
+                TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding |
+                TextFormatFlags.EndEllipsis);
         }
 
         private static string Fallback(string value)
@@ -1622,11 +1636,12 @@ namespace GpuSentinel
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             Rectangle bounds = new Rectangle(0, 0, Width - 1, Height - 1);
             DrawingUtil.DrawSection(e.Graphics, bounds, "运行事件");
-            using (Font timeFont = new Font("Consolas", 7.8f, FontStyle.Regular))
-            using (Font textFont = new Font("Segoe UI", 8.2f, FontStyle.Regular))
+            using (Font timeFont = new Font("Consolas", 8.8f, FontStyle.Regular))
+            using (Font textFont = new Font("Segoe UI", 9.3f, FontStyle.Regular))
             {
-                int y = 48;
-                int count = Math.Min(4, items.Count);
+                int y = 52;
+                int maxRows = Math.Max(1, (Height - 60) / 62);
+                int count = Math.Min(Math.Min(4, maxRows), items.Count);
                 for (int offset = 0; offset < count; offset++)
                 {
                     LogItem item = items[items.Count - 1 - offset];
@@ -1637,15 +1652,15 @@ namespace GpuSentinel
                     }
                     TextRenderer.DrawText(
                         e.Graphics, Formatters.Time(item.Timestamp), timeFont,
-                        new Rectangle(31, y, 82, 18), Palette.Dim,
+                        new Rectangle(31, y, 94, 20), Palette.Dim,
                         TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.NoPadding);
                     TextRenderer.DrawText(
                         e.Graphics, item.Message, textFont,
-                        new Rectangle(119, y - 1, Width - 135, 42),
+                        new Rectangle(131, y - 1, Width - 149, 52),
                         Palette.Muted,
                         TextFormatFlags.Left | TextFormatFlags.WordBreak | TextFormatFlags.EndEllipsis |
                         TextFormatFlags.NoPadding);
-                    y += 52;
+                    y += 62;
                 }
                 if (items.Count == 0)
                 {
@@ -1837,8 +1852,8 @@ namespace GpuSentinel
             BackColor = Palette.Background;
             ForeColor = Palette.Text;
             StartPosition = FormStartPosition.CenterScreen;
-            MinimumSize = new Size(980, 720);
-            Size = new Size(1260, 850);
+            MinimumSize = new Size(1200, 820);
+            Size = new Size(1480, 960);
             AutoScaleMode = AutoScaleMode.Dpi;
             Font = new Font("Segoe UI", 9f, FontStyle.Regular);
             Icon = CreateWindowIcon();
@@ -1847,14 +1862,14 @@ namespace GpuSentinel
             TableLayoutPanel root = new TableLayoutPanel();
             root.Dock = DockStyle.Fill;
             root.BackColor = Palette.Background;
-            root.Padding = new Padding(18, 12, 18, 8);
+            root.Padding = new Padding(22, 16, 22, 10);
             root.ColumnCount = 1;
             root.RowCount = 4;
             root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 72));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 320));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 88));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 430));
             root.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 26));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
             Controls.Add(root);
 
             header = new HeaderView();
@@ -2056,7 +2071,7 @@ namespace GpuSentinel
                 DeviceCard card = new DeviceCard();
                 card.Accent = VendorColor(device.Vendor);
                 card.ShortRole = VendorRole(device.Vendor);
-                card.Margin = new Padding(0, 0, 14, 0);
+                card.Margin = new Padding(0, 0, 16, 0);
                 card.Cursor = Cursors.Hand;
                 card.AccessibleName = device.Name;
                 card.Click += delegate { OpenDeviceSelection(); };
@@ -2088,11 +2103,11 @@ namespace GpuSentinel
             int columns = Math.Min(Math.Max(1, count), 3);
             int viewport = Math.Max(cardsPanel.Width, ClientSize.Width - 56);
             int available = Math.Max(320, viewport - 24);
-            int fitWidth = (available - columns * 14) / columns;
-            bool needsScroll = count > 3 || fitWidth < 360;
+            int fitWidth = (available - columns * 16) / columns;
+            bool needsScroll = count > 3 || fitWidth < 420;
             cardsPanel.AutoScroll = needsScroll;
-            int width = Math.Max(360, fitWidth);
-            int height = Math.Max(280, cardsPanel.ClientSize.Height - 28);
+            int width = Math.Min(680, Math.Max(420, fitWidth));
+            int height = Math.Max(390, cardsPanel.ClientSize.Height - 20);
             foreach (Control control in cardsPanel.Controls)
             {
                 control.Size = new Size(width, height);
@@ -2185,7 +2200,7 @@ namespace GpuSentinel
                 if (!deviceCards.TryGetValue(reading.DeviceKey, out card))
                 {
                     card = new DeviceCard();
-                    card.Margin = new Padding(0, 0, 14, 0);
+                    card.Margin = new Padding(0, 0, 16, 0);
                     card.Cursor = Cursors.Hand;
                     card.Click += delegate { OpenDeviceSelection(); };
                     cardsPanel.Controls.Add(card);

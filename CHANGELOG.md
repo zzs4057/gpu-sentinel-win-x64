@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.2 - 2026-11-07
+
+- Reworked each GPU card into separate header, gauge, metric-tile and detail-tile regions.
+- Moved driver, mode, PCIe and INF into a 2x2 footer layout.
+- Increased metric-tile text bounds so values are no longer clipped.
+- Made event-row count responsive to the available panel height.
+- Rechecked the UI at 1260x850 and 1000x740.
+
 ## 1.1.1 - 2026-11-07
 
 - Shortened event-list messages so long PnP fallback descriptions do not clip.
